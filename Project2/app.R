@@ -1,13 +1,24 @@
 #Eric Song
 #ST558 Project-2
 
+
+#install.packages(c('ggplot2', 'shiny','shinydashboard','shinyalert','bslib','tidyverse'))
 library(shiny)
 library(shinydashboard)
 library(shinyalert)
 library(bslib)
 library(tidyverse)
+library(rsconnect)
 
 
+# Load and clean the dataset
+bike_data <- read.csv("SeoulBikeData.csv", fileEncoding = "ISO-8859-1", check.names = FALSE)
+# Remove special characters from encoding
+names(bike_data) <- gsub("\\(.*\\)", "", names(bike_data))
+# Convert Date/Hour/seasons columns into correct datatypes so things behave properly.
+bike_data$Date <- as.Date(bike_data$Date, format = "%d/%m/%Y")
+bike_data$Hour <- as.numeric(bike_data$Hour)
+bike_data$Seasons <- as.character(bike_data$Seasons)
 
 
 ui <- dashboardPage(
@@ -157,15 +168,7 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output, session) {
-  # Load and clean the dataset
-  bike_data <- read.csv("SeoulBikeData.csv", fileEncoding = "ISO-8859-1", check.names = FALSE)
-  # Remove special characters from encoding
-  names(bike_data) <- gsub("\\(.*\\)", "", names(bike_data))
-  # Convert Date/Hour/seasons columns into correct datatypes so things behave properly.
-  bike_data$Date <- as.Date(bike_data$Date, format = "%d/%m/%Y")
-  bike_data$Hour <- as.numeric(bike_data$Hour)
-  bike_data$Seasons <- as.character(bike_data$Seasons)
-  
+
   # creating reactive values var 
   rv <- reactiveValues(
     filtered_data = NULL,

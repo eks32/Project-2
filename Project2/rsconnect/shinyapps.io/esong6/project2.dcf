@@ -1,0 +1,12 @@
+name: project2
+title: Project2
+username: esong6
+account: esong6
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13258336
+bundleId: 9326145
+url: https://esong6.shinyapps.io/project2/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
